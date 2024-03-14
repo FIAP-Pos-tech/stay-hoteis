@@ -48,5 +48,5 @@ public class QuartoController {
 	@GetMapping("/{id}")
 	public Quarto obterPorCodigo(@PathVariable String id) {
 		return this.quartoService.obterPorCodigo(id);
-	}	
+	}
 }

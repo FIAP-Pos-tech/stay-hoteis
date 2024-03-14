@@ -16,4 +16,4 @@ public class Predio {
 	public String idHotel;
 	public String idQuarto;
 
-}
+}	

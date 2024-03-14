@@ -12,4 +12,5 @@ public interface QuartoService {
 	public void atualizar(Quarto quarto);
 	public void deleteById(String id);
 	public void deleteQuartoById(String id);
+	
 }

@@ -13,42 +13,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.stayaway.hotel.model.Hotel;
-import br.com.stayaway.hotel.service.HotelService;
-
-
+import br.com.stayaway.hotel.model.Servico;
+import br.com.stayaway.hotel.service.ServicoService;
 
 @RestController
-@RequestMapping(value ="/hotel")
-public class HotelController {
+@RequestMapping(value ="/servico")
+public class ServicoController {
 
 	@Autowired
-	private HotelService hotelService;
-	
+	private ServicoService  servicoService ;
 	
 	@GetMapping
-	public List<Hotel> obterTodos(){
-		return this.hotelService.buscarTodos();
-	}
-	
-	@GetMapping("/{id}")
-	public Hotel obterPorCodigo(@PathVariable String id) {
-		return this.hotelService.obterPorCodigo(id);
-	}
-	
-	@PostMapping
-	public Hotel criar( @RequestBody Hotel hotel ) {
-		return this.hotelService.criar(hotel);
+	public List<Servico> obterTodos(){
+		return this.servicoService.buscarTodos();
 	}
 	
 	@DeleteMapping("/delete")
-	public void deleteHotelById(@RequestParam("Id") String id) {
-		this.hotelService.deleteHotelById(id);
-	//	this.hotelService.deleteById(id);
+	public void deleteById(@RequestParam("Id") String id) {
+		this.servicoService.deleteById(id);
+	}
+	
+	@PostMapping
+	public Servico criar(@RequestBody Servico servico) {
+		return this.servicoService.criar(servico);
 	}
 	
 	@PutMapping
-	public void atualizar(@RequestBody Hotel hotel) {
-		this.hotelService.atualizar(hotel);
+	public void atualizar(@RequestBody Servico servico) {
+		this.servicoService.atualizar(servico);
 	}
+	
+	@GetMapping("/{id}")
+	public Servico obterPorCodigo(@PathVariable String id) {
+		return this.servicoService.obterPorCodigo(id);
+	}
+	
+	
+	
 }

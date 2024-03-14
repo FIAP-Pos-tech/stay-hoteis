@@ -13,5 +13,6 @@ public interface HotelService {
 	public Hotel criar(Hotel hotel);
 	public void deleteHotelById(String id);
 	public void atualizar(Hotel hotel);
+	public void deleteById(String id);
 
 }

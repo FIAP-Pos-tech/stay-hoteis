@@ -7,15 +7,13 @@ import lombok.Data;
 
 @Document
 @Data
-public class Quarto {
+public class Servico {
 
 	@Id
-	 private String id;
-	 private String idPredio;
-	 private String idHotel;
-	 private String tipo;
-	 private String totalPessoas;
+	private String id;
+	private String tipo;
+	private String valor;
+	private String obs;
 	
-	 
 	
 }

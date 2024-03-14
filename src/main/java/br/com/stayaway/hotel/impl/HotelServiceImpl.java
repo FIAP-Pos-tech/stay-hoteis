@@ -55,7 +55,7 @@ public class HotelServiceImpl implements HotelService{
 
 	@Override
 	public void deleteHotelById(String id) {
-		Query query  = new Query( Criteria.where("codigo").is(id));
+		Query query  = new Query( Criteria.where("id").is(id));
 		this.mongoTemplate.remove(query,Hotel.class);
 		
 	}
@@ -63,6 +63,11 @@ public class HotelServiceImpl implements HotelService{
 	@Override
 	public void atualizar(Hotel hotel) {
 		this.hotelRepository.save(hotel);	
+	}
+
+	@Override
+	public void deleteById(String id) {
+		this.hotelRepository.deleteById(id);
 	}
 	
 
