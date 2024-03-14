@@ -1,4 +1,4 @@
-package br.com.stayaway.br.com.stayaway.hotel;
+package br.com.stayaway.hotel;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
