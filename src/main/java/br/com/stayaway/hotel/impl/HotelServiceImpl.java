@@ -1,17 +1,18 @@
 package br.com.stayaway.hotel.impl;
 
-import java.util.List;
+import br.com.stayaway.hotel.model.Hotel;
+import br.com.stayaway.hotel.model.Predio;
+import br.com.stayaway.hotel.model.Quarto;
+import br.com.stayaway.hotel.repository.HotelRepository;
+import br.com.stayaway.hotel.repository.PredioRepository;
+import br.com.stayaway.hotel.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import br.com.stayaway.hotel.model.Hotel;
-import br.com.stayaway.hotel.model.Predio;
-import br.com.stayaway.hotel.repository.HotelRepository;
-import br.com.stayaway.hotel.repository.PredioRepository;
-import br.com.stayaway.hotel.service.HotelService;
+import java.util.List;
 
 
 @Service
@@ -55,7 +56,7 @@ public class HotelServiceImpl implements HotelService{
 
 	@Override
 	public void deleteHotelById(String id) {
-		Query query  = new Query( Criteria.where("id").is(id));
+		Query query  = new Query( Criteria.where("codigo").is(id));
 		this.mongoTemplate.remove(query,Hotel.class);
 		
 	}
@@ -66,9 +67,13 @@ public class HotelServiceImpl implements HotelService{
 	}
 
 	@Override
-	public void deleteById(String id) {
-		this.hotelRepository.deleteById(id);
+	public List<Hotel> buscarPorCidade(String cidade) {
+		return hotelRepository.findByCidade(cidade);
 	}
-	
+
+	public List<Quarto> buscarQuartosPorHotel(String hotelId) {
+		Hotel hotel = hotelRepository.findById(hotelId).orElseThrow(() -> new RuntimeException("Hotel não encontrado!"));
+		return hotel.getQuartos();
+	}
 
 }

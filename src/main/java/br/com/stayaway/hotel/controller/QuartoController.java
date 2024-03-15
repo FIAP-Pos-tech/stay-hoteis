@@ -1,21 +1,12 @@
 package br.com.stayaway.hotel.controller;
 
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import br.com.stayaway.hotel.model.Quarto;
 import br.com.stayaway.hotel.service.QuartoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value ="/quarto")
@@ -34,10 +25,10 @@ public class QuartoController {
 	public void deleteById(@RequestParam("Id") String id) {
 		this.quartoService.deleteById(id);
 	}
-	
-	@PostMapping
-	public Quarto criar(@RequestBody Quarto quarto) {
-		return this.quartoService.criar(quarto);
+
+	@PostMapping("/{hotelId}")
+	public Quarto criar(@RequestBody Quarto quarto, @PathVariable String hotelId) {
+		return this.quartoService.criar(quarto, hotelId);
 	}
 	
 	@PutMapping

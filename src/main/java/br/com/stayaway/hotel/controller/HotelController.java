@@ -2,6 +2,7 @@ package br.com.stayaway.hotel.controller;
 
 import java.util.List;
 
+import br.com.stayaway.hotel.model.Quarto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import br.com.stayaway.hotel.model.Hotel;
 import br.com.stayaway.hotel.service.HotelService;
-
 
 
 @RestController
@@ -51,4 +50,14 @@ public class HotelController {
 	public void atualizar(@RequestBody Hotel hotel) {
 		this.hotelService.atualizar(hotel);
 	}
+	@GetMapping("/cidade/{cidade}")
+	public List<Hotel> obterPorCidade(@PathVariable String cidade) {
+		return this.hotelService.buscarPorCidade(cidade);
+	}
+
+	@GetMapping("/{id}/quartos")
+	public List<Quarto> buscarQuartosPorHotel(@PathVariable String id) {
+		return hotelService.buscarQuartosPorHotel(id);
+	}
+
 }
