@@ -36,10 +36,9 @@ public class AdicionalController {
 			AdicionalResponse adicionalResponse = new AdicionalResponse(
 					adicional.getId(),
 					adicionalReq.getQuantidade(),
+					adicional.getValor(),
 					adicional.getObs(),
-					adicional.getValor());
-
-			adicionalResponse.setValor(adicional.getValor() * adicionalReq.getQuantidade());
+					adicional.getTipo().name());
 			respostas.add(adicionalResponse);
 		}
 		return respostas;

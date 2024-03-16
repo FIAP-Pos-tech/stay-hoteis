@@ -14,7 +14,7 @@ public class AdicionalResponse {
 
     private String id;
     private Integer quantidade;
-    private String obs;
     private Double valor;
-
+    private String obs;
+    private String tipo;
 }

@@ -66,4 +66,11 @@ public class QuartoServiceImpl implements QuartoService {
     }
 
 
+    public List<Quarto> buscarPorHotel(String hotelId) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("hotelId").is(hotelId));
+        return this.mongoTemplate.find(query, Quarto.class);
+    }
+
+
 }

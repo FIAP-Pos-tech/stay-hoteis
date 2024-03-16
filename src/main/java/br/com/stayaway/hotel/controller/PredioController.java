@@ -18,7 +18,7 @@ import br.com.stayaway.hotel.model.domain.Predio;
 import br.com.stayaway.hotel.service.PredioService;
 
 @RestController
-@RequestMapping(value ="/predio")
+@RequestMapping(value ="api/predio")
 public class PredioController {
 
 	@Autowired

@@ -17,5 +17,6 @@ public class Quarto {
     private Integer quantidade;
     private String totalPessoas;
     private String hotelId;
+    private Double preco;
 
 }

@@ -12,9 +12,6 @@ import lombok.Setter;
 public class AdicionalRequest {
 
     private String id;
-    private TipoAdicional tipo;
-    private Double valor;
     private Integer quantidade;
-    private String obs;
 
 }
