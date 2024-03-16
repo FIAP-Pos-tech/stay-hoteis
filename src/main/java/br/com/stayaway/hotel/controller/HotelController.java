@@ -43,7 +43,6 @@ public class HotelController {
 	@DeleteMapping("/delete")
 	public void deleteHotelById(@RequestParam("Id") String id) {
 		this.hotelService.deleteHotelById(id);
-	//	this.hotelService.deleteById(id);
 	}
 	
 	@PutMapping

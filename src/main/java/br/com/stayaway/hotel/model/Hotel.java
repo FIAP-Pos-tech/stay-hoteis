@@ -29,6 +29,7 @@ public class Hotel {
 	private String estado;
 	private String pais;
 	private List<Quarto> quartos;
+	private List<Adicional> adicionais;
 	
 	@DBRef
 	private Predio predio;

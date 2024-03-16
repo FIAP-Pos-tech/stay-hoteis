@@ -14,39 +14,39 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.stayaway.hotel.model.Predio;
-import br.com.stayaway.hotel.service.PrediolService;
+import br.com.stayaway.hotel.service.PredioService;
 
 @RestController
 @RequestMapping(value ="/predio")
 public class PredioController {
 
 	@Autowired
-	private PrediolService prediolService;
+	private PredioService predioService;
 	
 	
 	@GetMapping
 	public List<Predio> obterTodos(){
-		return this.prediolService.buscarTodos();
+		return this.predioService.buscarTodos();
 	}
 	
 	@GetMapping("/{id}")
 	public Predio obterPorCodigo(@PathVariable String id) {
-		return this.prediolService.obterPorCodigo(id);
+		return this.predioService.obterPorCodigo(id);
 	}
 	
 	@PostMapping
 	public Predio criar( @RequestBody Predio predio ) {
-		return this.prediolService.criar(predio);
+		return this.predioService.criar(predio);
 	}
 	
 	@DeleteMapping("/delete")
 	public void deleteHotelById(@RequestParam("Id") String id) {
-		this.prediolService.deletePrediolById(id);
+		this.predioService.deletePrediolById(id);
 	}
 	
 	@PutMapping
 	public void atualizar(@RequestBody Predio predio) {
-		this.prediolService.atualizar(predio);
+		this.predioService.atualizar(predio);
 	}
 	
 	

@@ -9,12 +9,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Servico {
+public class Adicional {
 
 	@Id
 	private String id;
-	private String tipo;
+	private tipoAdicional tipo;
 	private String valor;
+	private Integer quantidade;
 	private String obs;
 	
 	

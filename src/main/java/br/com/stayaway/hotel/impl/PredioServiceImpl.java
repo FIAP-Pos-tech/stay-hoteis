@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 
 import br.com.stayaway.hotel.model.Predio;
 import br.com.stayaway.hotel.repository.PredioRepository;
-import br.com.stayaway.hotel.service.PrediolService;
+import br.com.stayaway.hotel.service.PredioService;
 
 @Service
-public class PredioServiceImpl implements PrediolService {
+public class PredioServiceImpl implements PredioService {
 
 	//Mongo Template
 	private final MongoTemplate mongoTemplate;
@@ -47,10 +47,8 @@ public class PredioServiceImpl implements PrediolService {
 		this.mongoTemplate.remove(query,Predio.class);
 		
 	}
-
 	@Override
 	public void atualizar(Predio predio) {
 		this.predioRepository.save(predio);	
 	}
-
 }

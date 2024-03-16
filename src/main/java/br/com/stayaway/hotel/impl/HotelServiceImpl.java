@@ -44,13 +44,6 @@ public class HotelServiceImpl implements HotelService{
 
 	@Override
 	public Hotel criar(Hotel hotel) {
-		if(hotel.getPredio().getId().length() != 0) {
-			Predio predio = this.predioRepository.findById(hotel.getPredio().getId() )
-					.orElseThrow( ()-> new IllegalArgumentException(" Predio não existe")  );
-			hotel.setPredio(predio);
-		} else {
-			hotel.setPredio(null);
-		}
 		return this.hotelRepository.save(hotel);
 	}
 
@@ -58,7 +51,6 @@ public class HotelServiceImpl implements HotelService{
 	public void deleteHotelById(String id) {
 		Query query  = new Query( Criteria.where("codigo").is(id));
 		this.mongoTemplate.remove(query,Hotel.class);
-		
 	}
 
 	@Override

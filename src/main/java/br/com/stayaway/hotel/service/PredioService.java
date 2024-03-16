@@ -4,7 +4,7 @@ import java.util.List;
 
 import br.com.stayaway.hotel.model.Predio;
 
-public interface 	PrediolService {
+public interface PredioService {
 	List<Predio> buscarTodos();
 	Predio obterPorCodigo(String id);
 	Predio criar(Predio predio);
