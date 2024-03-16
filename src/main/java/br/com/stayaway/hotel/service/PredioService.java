@@ -2,7 +2,7 @@ package br.com.stayaway.hotel.service;
 
 import java.util.List;
 
-import br.com.stayaway.hotel.model.Predio;
+import br.com.stayaway.hotel.model.domain.Predio;
 
 public interface PredioService {
 	List<Predio> buscarTodos();

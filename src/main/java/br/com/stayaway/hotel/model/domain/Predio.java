@@ -1,4 +1,4 @@
-package br.com.stayaway.hotel.model;
+package br.com.stayaway.hotel.model.domain;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -9,14 +9,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Adicional {
-
+public class Predio {
+	
 	@Id
-	private String id;
-	private tipoAdicional tipo;
-	private String valor;
-	private Integer quantidade;
-	private String obs;
+	public String id;
 	
-	
-}
+	public String nomePredio;
+	public String idHotel;
+	public String idQuarto;
+
+}	

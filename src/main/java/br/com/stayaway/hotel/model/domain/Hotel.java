@@ -1,4 +1,4 @@
-package br.com.stayaway.hotel.model;
+package br.com.stayaway.hotel.model.domain;
 
 
 import lombok.AllArgsConstructor;

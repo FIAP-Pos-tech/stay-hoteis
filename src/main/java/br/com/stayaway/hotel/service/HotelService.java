@@ -2,8 +2,8 @@ package br.com.stayaway.hotel.service;
 
 import java.util.List;
 
-import br.com.stayaway.hotel.model.Hotel;
-import br.com.stayaway.hotel.model.Quarto;
+import br.com.stayaway.hotel.model.domain.Hotel;
+import br.com.stayaway.hotel.model.domain.Quarto;
 
 
 public interface HotelService {

@@ -1,8 +1,7 @@
 package br.com.stayaway.hotel.impl;
 
-import br.com.stayaway.hotel.model.Hotel;
-import br.com.stayaway.hotel.model.Predio;
-import br.com.stayaway.hotel.model.Quarto;
+import br.com.stayaway.hotel.model.domain.Hotel;
+import br.com.stayaway.hotel.model.domain.Quarto;
 import br.com.stayaway.hotel.repository.HotelRepository;
 import br.com.stayaway.hotel.repository.PredioRepository;
 import br.com.stayaway.hotel.service.HotelService;
@@ -16,21 +15,21 @@ import java.util.List;
 
 
 @Service
-public class HotelServiceImpl implements HotelService{
+public class HotelServiceImpl implements HotelService {
 	
 	//Mongo Template
 	private final MongoTemplate mongoTemplate;
+
+	@Autowired
+	private HotelRepository hotelRepository;
+
+	@Autowired
+	private PredioRepository predioRepository;
 	
 	public HotelServiceImpl(MongoTemplate mongoTemplate) {
 		super();
 		this.mongoTemplate = mongoTemplate;
 	}
-	
-	@Autowired
-	private HotelRepository hotelRepository;
-	
-	@Autowired
-	private PredioRepository predioRepository;
 	
 	@Override
 	public List<Hotel> buscarTodos() {
@@ -50,7 +49,7 @@ public class HotelServiceImpl implements HotelService{
 	@Override
 	public void deleteHotelById(String id) {
 		Query query  = new Query( Criteria.where("codigo").is(id));
-		this.mongoTemplate.remove(query,Hotel.class);
+		this.mongoTemplate.remove(query, Hotel.class);
 	}
 
 	@Override

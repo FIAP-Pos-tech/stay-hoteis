@@ -1,7 +1,7 @@
 package br.com.stayaway.hotel.controller;
 
 
-import br.com.stayaway.hotel.model.Quarto;
+import br.com.stayaway.hotel.model.domain.Quarto;
 import br.com.stayaway.hotel.service.QuartoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

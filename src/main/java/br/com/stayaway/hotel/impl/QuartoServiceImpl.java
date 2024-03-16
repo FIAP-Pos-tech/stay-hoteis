@@ -2,7 +2,7 @@ package br.com.stayaway.hotel.impl;
 
 import java.util.List;
 
-import br.com.stayaway.hotel.model.Hotel;
+import br.com.stayaway.hotel.model.domain.Hotel;
 import br.com.stayaway.hotel.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import br.com.stayaway.hotel.model.Quarto;
+import br.com.stayaway.hotel.model.domain.Quarto;
 import br.com.stayaway.hotel.repository.QuartoRepository;
 import br.com.stayaway.hotel.service.QuartoService;
 
@@ -37,13 +37,13 @@ public class QuartoServiceImpl implements QuartoService {
 
     @Override
     public Quarto obterPorCodigo(String id) {
-        return this.quartoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(" Quarto não existe"));
+        return this.quartoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Quarto não existe"));
     }
 
     @Override
     public Quarto criar(Quarto quarto, String hotelId) {
         Hotel hotel = hotelRepository.findById(hotelId).orElseThrow(() -> new RuntimeException("Hotel não encontrado!"));
-        quarto.setHotel(hotel);
+        quarto.setHotelId(hotel.getId());
         return this.quartoRepository.save(quarto);
     }
 

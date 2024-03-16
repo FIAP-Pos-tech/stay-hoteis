@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import br.com.stayaway.hotel.model.Adicional;
+import br.com.stayaway.hotel.model.domain.Adicional;
 import br.com.stayaway.hotel.repository.AdicionalRepository;
 import br.com.stayaway.hotel.service.AdicionalService;
 

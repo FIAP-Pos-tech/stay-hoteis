@@ -2,7 +2,7 @@ package br.com.stayaway.hotel.service;
 
 import java.util.List;
 
-import br.com.stayaway.hotel.model.Adicional;
+import br.com.stayaway.hotel.model.domain.Adicional;
 
 public interface AdicionalService {
 
