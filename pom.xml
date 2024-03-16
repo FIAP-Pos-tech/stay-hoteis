@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.stayaway</groupId>
-	<artifactId>br.com.stayaway.hotel</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>br.com.stayaway.hotel</name>
+	<artifactId>stay-hotel</artifactId>
+	<version>0.0.1</version>
+	<name>stay-hotel</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
@@ -56,6 +56,7 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					<finalName>${project.artifactId}</finalName>
 				</configuration>
 			</plugin>
 		</plugins>
