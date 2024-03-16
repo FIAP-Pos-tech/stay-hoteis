@@ -1,35 +1,36 @@
 package br.com.stayaway.hotel.impl;
 
-import java.util.List;
+import br.com.stayaway.hotel.model.domain.Hotel;
+import br.com.stayaway.hotel.model.domain.Quarto;
+import br.com.stayaway.hotel.repository.AdicionalRepository;
+import br.com.stayaway.hotel.repository.HotelRepository;
+import br.com.stayaway.hotel.repository.PredioRepository;
+import br.com.stayaway.hotel.repository.QuartoRepository;
+import br.com.stayaway.hotel.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import br.com.stayaway.hotel.model.Hotel;
-import br.com.stayaway.hotel.model.Predio;
-import br.com.stayaway.hotel.repository.HotelRepository;
-import br.com.stayaway.hotel.repository.PredioRepository;
-import br.com.stayaway.hotel.service.HotelService;
+import java.util.List;
 
 
 @Service
-public class HotelServiceImpl implements HotelService{
+public class HotelServiceImpl implements HotelService {
+
+	private final HotelRepository hotelRepository;
+	private final QuartoRepository quartoRepository;
+
+	private final AdicionalRepository adicionalRepository;
 	
-	//Mongo Template
-	private final MongoTemplate mongoTemplate;
-	
-	public HotelServiceImpl(MongoTemplate mongoTemplate) {
-		super();
-		this.mongoTemplate = mongoTemplate;
-	}
-	
-	@Autowired
-	private HotelRepository hotelRepository;
-	
-	@Autowired
-	private PredioRepository predioRepository;
+	public HotelServiceImpl(HotelRepository hotelRepository,
+							QuartoRepository quartoRepository,
+							AdicionalRepository adicionalRepository) {
+        this.hotelRepository = hotelRepository;
+        this.quartoRepository = quartoRepository;
+        this.adicionalRepository = adicionalRepository;
+    }
 	
 	@Override
 	public List<Hotel> buscarTodos() {
@@ -38,26 +39,20 @@ public class HotelServiceImpl implements HotelService{
 
 	@Override
 	public Hotel obterPorCodigo(String id) {
-		return this.hotelRepository.findById(id).orElseThrow( ()-> new IllegalArgumentException(" Hotel não existe")  );
+		return this.hotelRepository.findById(id).orElseThrow( ()-> new IllegalArgumentException(" Hotel não existe"));
 	}
 
 	@Override
 	public Hotel criar(Hotel hotel) {
-		if(hotel.getPredio().getId().length() != 0) {
-			Predio predio = this.predioRepository.findById(hotel.getPredio().getId() )
-					.orElseThrow( ()-> new IllegalArgumentException(" Predio não existe")  );
-			hotel.setPredio(predio);
-		} else {
-			hotel.setPredio(null);
-		}
 		return this.hotelRepository.save(hotel);
 	}
 
 	@Override
 	public void deleteHotelById(String id) {
-		Query query  = new Query( Criteria.where("id").is(id));
-		this.mongoTemplate.remove(query,Hotel.class);
-		
+		Hotel hotel = this.hotelRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(" Hotel não existe"));
+		hotel.getAdicionais().forEach(adicional -> adicionalRepository.deleteById(adicional.getId()));
+		hotel.getQuartos().forEach(quarto -> quartoRepository.deleteById(quarto.getId()));
+		hotelRepository.deleteById(id);
 	}
 
 	@Override
@@ -66,9 +61,13 @@ public class HotelServiceImpl implements HotelService{
 	}
 
 	@Override
-	public void deleteById(String id) {
-		this.hotelRepository.deleteById(id);
+	public List<Hotel> buscarPorCidade(String cidade) {
+		return hotelRepository.findByCidade(cidade);
 	}
-	
+
+	public List<Quarto> buscarQuartosPorHotel(String hotelId) {
+		Hotel hotel = hotelRepository.findById(hotelId).orElseThrow(() -> new RuntimeException("Hotel não encontrado!"));
+		return hotel.getQuartos();
+	}
 
 }
