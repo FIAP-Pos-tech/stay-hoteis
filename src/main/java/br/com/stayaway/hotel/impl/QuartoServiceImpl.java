@@ -44,24 +44,25 @@ public class QuartoServiceImpl implements QuartoService {
     public Quarto criar(Quarto quarto, String hotelId) {
         Hotel hotel = hotelRepository.findById(hotelId).orElseThrow(() -> new RuntimeException("Hotel não encontrado!"));
         quarto.setHotelId(hotel.getId());
-        return this.quartoRepository.save(quarto);
+        quarto = this.quartoRepository.save(quarto);
+        hotel.addQuarto(quarto);
+        hotelRepository.save(hotel);
+        return quarto;
     }
 
     @Override
     public void atualizar(Quarto quarto) {
-        this.quartoRepository.save(quarto);
+        criar(quarto, quarto.getHotelId());
     }
 
 
     @Override
     public void deleteById(String id) {
+        Quarto quarto = quartoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Quarto não existe"));
+        Hotel hotel = hotelRepository.findById(quarto.getHotelId()).orElseThrow(() -> new RuntimeException("Hotel não encontrado!"));
+        hotel.removeQuarto(quarto);
+        hotelRepository.save(hotel);
         this.quartoRepository.deleteById(id);
-    }
-
-    @Override
-    public void deleteQuartoById(String id) {
-        Query query = new Query(Criteria.where("id").is(id));
-        this.mongoTemplate.remove(query, Quarto.class);
     }
 
 

@@ -2,6 +2,7 @@ package br.com.stayaway.hotel.controller;
 
 import java.util.List;
 
+import br.com.stayaway.hotel.impl.HotelServiceImpl;
 import br.com.stayaway.hotel.model.domain.Quarto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,11 +19,11 @@ import br.com.stayaway.hotel.service.HotelService;
 
 
 @RestController
-@RequestMapping(value ="/hotel")
+@RequestMapping(value ="/api/hotel")
 public class HotelController {
 
 	@Autowired
-	private HotelService hotelService;
+	private HotelServiceImpl hotelService;
 	
 	
 	@GetMapping
@@ -36,7 +37,7 @@ public class HotelController {
 	}
 	
 	@PostMapping
-	public Hotel criar( @RequestBody Hotel hotel ) {
+	public Hotel criar( @RequestBody Hotel hotel) {
 		return this.hotelService.criar(hotel);
 	}
 	

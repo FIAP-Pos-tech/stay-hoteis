@@ -2,6 +2,7 @@ package br.com.stayaway.hotel.controller;
 
 import java.util.List;
 
+import br.com.stayaway.hotel.impl.PredioServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,7 @@ import br.com.stayaway.hotel.service.PredioService;
 public class PredioController {
 
 	@Autowired
-	private PredioService predioService;
+	private PredioServiceImpl predioService;
 	
 	
 	@GetMapping

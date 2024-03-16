@@ -3,8 +3,11 @@ package br.com.stayaway.hotel.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.stayaway.hotel.impl.AdicionalServiceImpl;
+import br.com.stayaway.hotel.impl.HotelServiceImpl;
 import br.com.stayaway.hotel.model.request.AdicionalRequest;
 import br.com.stayaway.hotel.model.response.AdicionalResponse;
+import br.com.stayaway.hotel.service.AdicionalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,16 +20,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.stayaway.hotel.model.domain.Adicional;
-import br.com.stayaway.hotel.service.AdicionalService;
 
 @RestController
-@RequestMapping(value ="/adicional")
+@RequestMapping("api/adicional")
 public class AdicionalController {
 
 	@Autowired
 	private AdicionalService adicionalService;
 
-	@PostMapping("/lista")
+    @PostMapping("/lista")
 	public List<AdicionalResponse> obterPorListaIdEQuantidade(@RequestBody List<AdicionalRequest> lista) {
 		List<AdicionalResponse> respostas = new ArrayList<>();
 		for (AdicionalRequest adicionalReq : lista) {
@@ -48,8 +50,8 @@ public class AdicionalController {
 		return this.adicionalService.buscarTodos();
 	}
 	
-	@DeleteMapping("/delete")
-	public void deleteById(@RequestParam("Id") String id) {
+	@DeleteMapping
+	public void deleteById(@RequestParam("id") String id) {
 		this.adicionalService.deleteById(id);
 	}
 	

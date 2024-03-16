@@ -2,6 +2,7 @@ package br.com.stayaway.hotel.impl;
 
 import java.util.List;
 
+import br.com.stayaway.hotel.model.domain.Hotel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -13,20 +14,20 @@ import br.com.stayaway.hotel.repository.AdicionalRepository;
 import br.com.stayaway.hotel.service.AdicionalService;
 
 @Service
-public class AdiconalServiceImpl implements AdicionalService {
+public class AdicionalServiceImpl implements AdicionalService {
 
-	
-	//Mongo Template
 	private final MongoTemplate mongoTemplate;
+	private final AdicionalRepository adicionalRepository;
+	private final HotelServiceImpl hotelService;
 			
-	public AdiconalServiceImpl(MongoTemplate mongoTemplate) {
-		super();
+	public AdicionalServiceImpl(MongoTemplate mongoTemplate,
+								AdicionalRepository adicionalRepository,
+								HotelServiceImpl hotelService) {
 		this.mongoTemplate = mongoTemplate;
-	}
-	
-	@Autowired
-	private AdicionalRepository adicionalRepository;
-	
+        this.adicionalRepository = adicionalRepository;
+        this.hotelService = hotelService;
+    }
+
 	@Override
 	public List<Adicional> buscarTodos() {
 		return this.adicionalRepository.findAll();
@@ -39,16 +40,24 @@ public class AdiconalServiceImpl implements AdicionalService {
 
 	@Override
 	public Adicional criar(Adicional adicional) {
-		return this.adicionalRepository.save(adicional);
+		Hotel hotel = this.hotelService.obterPorCodigo(adicional.getHotelId());
+		adicional = this.adicionalRepository.save(adicional);
+		hotel.addAdicional(adicional);
+		this.hotelService.atualizar(hotel);
+		return adicional;
 	}
 
 	@Override
 	public void atualizar(Adicional adicional) {
-	    this.adicionalRepository.save(adicional);
+		criar(adicional);
 	}
 
 	@Override
 	public void deleteById(String id) {
+		Adicional adicional = this.adicionalRepository.findById(id).orElseThrow( ()-> new IllegalArgumentException(" Serviço não existe")  );
+		Hotel hotel = this.hotelService.obterPorCodigo(adicional.getHotelId());
+		hotel.removeAdicional(adicional);
+		this.hotelService.atualizar(hotel);
 		this.adicionalRepository.deleteById(id);
 	}
 

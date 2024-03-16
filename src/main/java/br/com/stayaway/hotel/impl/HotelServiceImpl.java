@@ -2,8 +2,10 @@ package br.com.stayaway.hotel.impl;
 
 import br.com.stayaway.hotel.model.domain.Hotel;
 import br.com.stayaway.hotel.model.domain.Quarto;
+import br.com.stayaway.hotel.repository.AdicionalRepository;
 import br.com.stayaway.hotel.repository.HotelRepository;
 import br.com.stayaway.hotel.repository.PredioRepository;
+import br.com.stayaway.hotel.repository.QuartoRepository;
 import br.com.stayaway.hotel.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -16,20 +18,19 @@ import java.util.List;
 
 @Service
 public class HotelServiceImpl implements HotelService {
-	
-	//Mongo Template
-	private final MongoTemplate mongoTemplate;
 
-	@Autowired
-	private HotelRepository hotelRepository;
+	private final HotelRepository hotelRepository;
+	private final QuartoRepository quartoRepository;
 
-	@Autowired
-	private PredioRepository predioRepository;
+	private final AdicionalRepository adicionalRepository;
 	
-	public HotelServiceImpl(MongoTemplate mongoTemplate) {
-		super();
-		this.mongoTemplate = mongoTemplate;
-	}
+	public HotelServiceImpl(HotelRepository hotelRepository,
+							QuartoRepository quartoRepository,
+							AdicionalRepository adicionalRepository) {
+        this.hotelRepository = hotelRepository;
+        this.quartoRepository = quartoRepository;
+        this.adicionalRepository = adicionalRepository;
+    }
 	
 	@Override
 	public List<Hotel> buscarTodos() {
@@ -38,7 +39,7 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public Hotel obterPorCodigo(String id) {
-		return this.hotelRepository.findById(id).orElseThrow( ()-> new IllegalArgumentException(" Hotel não existe")  );
+		return this.hotelRepository.findById(id).orElseThrow( ()-> new IllegalArgumentException(" Hotel não existe"));
 	}
 
 	@Override
@@ -48,8 +49,10 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public void deleteHotelById(String id) {
-		Query query  = new Query( Criteria.where("codigo").is(id));
-		this.mongoTemplate.remove(query, Hotel.class);
+		Hotel hotel = this.hotelRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(" Hotel não existe"));
+		hotel.getAdicionais().forEach(adicional -> adicionalRepository.deleteById(adicional.getId()));
+		hotel.getQuartos().forEach(quarto -> quartoRepository.deleteById(quarto.getId()));
+		hotelRepository.deleteById(id);
 	}
 
 	@Override

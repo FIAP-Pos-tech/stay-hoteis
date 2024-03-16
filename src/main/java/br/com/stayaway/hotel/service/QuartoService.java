@@ -11,6 +11,5 @@ public interface QuartoService {
 	public Quarto criar(Quarto quarto, String hotelId);
 	public void atualizar(Quarto quarto);
 	public void deleteById(String id);
-	public void deleteQuartoById(String id);
 	
 }
